@@ -46,9 +46,6 @@
         
         section{
             text-align:center;
-            /* ИЗМЕНЕНО: убрал opacity:0 и transform */
-            opacity: 1 !important;
-            transform: translateY(0) !important;
         }
         
         h2 {
@@ -83,6 +80,7 @@
             color: #ad986e;
         }
         
+        /* ===== HERO ===== */
         .hero{
             position:relative;
             display:flex;
@@ -108,8 +106,6 @@
             color:#413d3d;
             text-shadow:2px 2px 4px rgba(0,0,0,.5);
             z-index:2;
-            /* ИЗМЕНЕНО: убрал opacity:0 и animation */
-            opacity: 1 !important;
         }
         
         .mp-name{
@@ -118,8 +114,6 @@
             bottom:70px;
             font-size:35px;
             z-index:2;
-            /* ИЗМЕНЕНО: убрал opacity:0 и animation */
-            opacity: 1 !important;
         }
         
         .mp-name-date{
@@ -127,8 +121,31 @@
             bottom:20px;
             font-size:26px;
             z-index:2;
-            /* ИЗМЕНЕНО: убрал opacity:0 и animation */
-            opacity: 1 !important;
+        }
+
+        /* ===== HERO REVEAL (initial load) ===== */
+        .hero h2,
+        .hero .mp-name,
+        .hero .mp-name-date {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(.22,.68,0,1.2),
+                        transform 0.8s cubic-bezier(.22,.68,0,1.2);
+        }
+        .hero h2.reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
+        .hero .mp-name.reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.55s;
+        }
+        .hero .mp-name-date.reveal {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.8s;
         }
         
         .photo2{
@@ -155,6 +172,11 @@
         
         button:hover{
             background-color:#8a785a;
+        }
+        
+        button:disabled{
+            background-color:#ccc;
+            cursor: not-allowed;
         }
         
         .feedback h3 {
@@ -225,7 +247,8 @@
             left:50%;
             transform:translate(-50%,-50%)
         }
-        
+
+        /* ===== CALENDAR SECTION ===== */
         .calendar{
             max-width:400px;
             margin:20px auto;
@@ -254,7 +277,25 @@
             background-size:cover;
             background-position:center
         }
-        
+
+        /* ===== CALENDAR / EVENT-INFO REVEAL (scroll) ===== */
+        .event-info .ev-reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2),
+                        transform 0.7s cubic-bezier(.22,.68,0,1.2);
+        }
+        .event-info .ev-reveal.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Staggered delays for each child */
+        .event-info .ev-reveal:nth-child(1).reveal { transition-delay: 0s; }
+        .event-info .ev-reveal:nth-child(2).reveal { transition-delay: 0.13s; }
+        .event-info .ev-reveal:nth-child(3).reveal { transition-delay: 0.26s; }
+        .event-info .ev-reveal:nth-child(4).reveal { transition-delay: 0.39s; }
+
+        /* ===== COUNTDOWN ===== */
         .countdown-section{
             position:relative;
             margin:40px 0;
@@ -300,6 +341,7 @@
             color: #fff;
         }
         
+        /* ===== MUSIC PLAYER ===== */
         .music-player-container{
             margin-bottom:20px
         }
@@ -345,7 +387,7 @@
             background-image:url(https://toiway.kz/build/img/template-images/pause.png)
         }
         
-        /* Загрузочный экран - эффект конверта */
+        /* ===== LOADING SCREEN ===== */
         .loading-screen{
             position:fixed;
             top:0;
@@ -414,7 +456,7 @@
             100%{transform:translateY(100vh)}
         }
         
-        /* Скрываем основной контент пока идет анимация */
+        /* ===== MAIN CONTENT VISIBILITY ===== */
         .main-content {
             display: none;
         }
@@ -443,17 +485,35 @@
         }
         
         footer {
-            background-color: #000c;
-            color: #fff;
-            padding: 20px;
+            background: linear-gradient(180deg, rgba(173, 152, 110, 0.1) 0%, rgba(173, 152, 110, 0.2) 100%);
+            color: #333;
+            padding: 40px 20px;
             text-align: center;
-            margin-top: 40px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(173, 152, 110, 0.3);
         }
         
-        footer p {
-            margin: 0;
+        footer .footer-names {
+            font-family: Shelley, Arial, sans-serif;
+            font-size: 42px;
+            color: #ad986e;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        footer .footer-message {
+            font-family: MonumentaPro, Arial, sans-serif;
+            font-size: 18px;
+            color: #666;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        
+        footer .footer-year {
+            font-family: MonumentaPro, Arial, sans-serif;
             font-size: 16px;
-            font-family: Arial, sans-serif;
+            color: #ad986e;
+            margin-top: 20px;
         }
         
         a{
@@ -464,10 +524,14 @@
             margin-top: 0.1em;
             margin-bottom: 0.1em;
         }
+        
+        #hidden_iframe {
+            display: none;
+        }
     </style>
 </head>
 <body>
-<!-- Загрузочный экран - эффект конверта -->
+<!-- Загрузочный экран -->
 <div class="loading-screen">
     <div class="letter-top">
         <h2>Диана <br>қыз ұзату</h2>
@@ -475,14 +539,18 @@
     </div>
     <div class="letter-bottom"></div>
 </div>
+
 <!-- Основной контент -->
 <div class="main-content">
+
 <section class="hero">
-    <img src="1.jpg" alt="Невестка и жenih" class="main-photo">
+    <img src="1.jpg" alt="Невестка и жених" class="main-photo">
+    <!-- каждый элемент получит .reveal после появления контента -->
     <h2>Диана</h2>
     <p class="mp-name">қыз ұзату</p>
     <p class="date-top mp-name-date">02.05.2026</p>
 </section>
+
 <section class="info">
     <div class="music-player-container">
         <img src="https://toiway.kz/build/img/template-images/audio-border.png" class="audio-border" alt="">
@@ -506,17 +574,21 @@
         қонағы болуға шақырамыз!<br>
     </p>
 </section>
+
 <section>
     <img src="4.jpg" alt="Невестка и жених" class="photo2">
 </section>
+
+<!-- event-info: каждый прямой потомок оборачивается .ev-reveal для всплытия -->
 <section class="event-info">
-    <h3>Той салтанаты:</h3>
-    <p class="date-top">2 мамыр 2026 жыл</p>
-    <div class="calendar">
+    <h3 class="ev-reveal">Той салтанаты:</h3>
+    <p class="date-top ev-reveal">2 мамыр 2026 жыл</p>
+    <div class="calendar ev-reveal">
         <div class="calendar-grid" id="calendarGrid"></div>
     </div>
-    <p>16:00-де басталады</p>
+    <p class="ev-reveal">16:00-де басталады</p>
 </section>
+
 <section class="address">
     <h3>Мекен-жайымыз:</h3>
     <p>
@@ -530,6 +602,7 @@
     <h3>Той иелері:</h3>
     <p>Бақыт - Жанна</p>
 </section>
+
 <section class="countdown-section">
     <div class="countdown-background">
         <h3>Той салтанатына дейін:</h3>
@@ -541,34 +614,57 @@
         </div>
     </div>
 </section>
+
 <section class="feedback">
     <div id="feedback-message" class="hidden"></div>
-    <form id="feedback-form" action="https://toiway.kz/kk/feedback" method="POST">
-        <input type="hidden" name="_token" value="tC5jNW9DGverqb03ZohTW6j7adwIEMeUehkDo8Yu" autocomplete="off">
+    <form id="feedback-form" 
+          action="https://docs.google.com/forms/d/e/1FAIpQLScJBTWD6b3RwOgBwIIPppRBb0A7z-TuSV2WsEOGu18cNx1Ynw/formResponse" 
+          method="POST"
+          target="hidden_iframe">
         <h3>Мерекелік шараға қатысуыңызды растауға өтініш білдіреміз.</h3>
-        <input class="feedback-input" type="text" name="name" placeholder="Сіздің есімңіз">
+        
+        <input class="feedback-input" 
+               type="text" 
+               name="entry.1898004027" 
+               placeholder="Сіздің есімңіз"
+               id="name-input"
+               required>
+        
         <p>Тойға келесіз бе?</p>
         <div class="radio-group">
             <label class="radio-container">
-                <input type="radio" name="attendance" value="yes" checked>
+                <input type="radio" 
+                       name="entry.1495192587" 
+                       value="Иә, келемін" 
+                       checked
+                       id="attendance-yes">
                 <span class="custom-radio"></span>
                 ИӘ, КЕЛЕМІН
             </label>
             <label class="radio-container">
-                <input type="radio" name="attendance" value="yes_with_partner">
+                <input type="radio" 
+                       name="entry.1495192587" 
+                       value="Жұбайыммен келемін"
+                       id="attendance-partner">
                 <span class="custom-radio"></span>
                 ЖҰБАЙЫММЕН КЕЛЕМІН
             </label>
             <label class="radio-container">
-                <input type="radio" name="attendance" value="no">
+                <input type="radio" 
+                       name="entry.1495192587" 
+                       value="Келе алмаймын"
+                       id="attendance-no">
                 <span class="custom-radio"></span>
                 КЕЛЕ АЛМАЙМЫН
             </label>
         </div>
-        <input type="hidden" name="project_id" value="diana">
-        <button type="submit">Жіберу</button>
+        
+        <button type="submit" id="submit-btn">Жіберу</button>
     </form>
+    
+    <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 </section>
+
 <section class="closing-message">
     <h3>
         Қуанышымызға<br>
@@ -577,174 +673,193 @@
     </h3>
     <input type="hidden" class="js_date" value="2026-05-02 16:00:00">
 </section>
-</div>
-<!-- Конец main-content -->
+
+</div><!-- /main-content -->
+
 <footer>
-    <p>Created By <a href="https://toiway.kz">ToiWay.kz</a></p>
-    <p>© Все права защищены</p>
-    <p>2025 Toiway.kz</p>
+    <p class="footer-names">Алиакбар & Диана</p>
+    <p class="footer-message">
+        Бір шаңырақтан — бір ғұмырға.
+    </p>
+    <p class="footer-year">2 мамыр • 2026</p>
 </footer>
+
 <script>
-// Управление загрузочным экраном
+// ============================================================
+// 1. ЗАГРУЗОЧНЫЙ ЭКРАН + HERO REVEAL
+// ============================================================
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.querySelector('.loading-screen');
-    const mainContent = document.querySelector('.main-content');
-    
-    // Через 2 секунды скрываем загрузочный экран и показываем контент
+    const mainContent  = document.querySelector('.main-content');
+
     setTimeout(() => {
         loadingScreen.style.display = 'none';
         mainContent.classList.add('visible');
+
+        // После появления контента запускаем hero-reveal с небольшой задержкой
+        requestAnimationFrame(() => {
+            document.querySelector('.hero h2').classList.add('reveal');
+            document.querySelector('.hero .mp-name').classList.add('reveal');
+            document.querySelector('.hero .mp-name-date').classList.add('reveal');
+        });
     }, 2000);
 });
-// Обратный отсчет
-const dateInput = document.querySelector('.js_date');
+
+// ============================================================
+// 2. SCROLL REVEAL для секции event-info (календарь)
+// ============================================================
+(function initScrollReveal() {
+    const items = document.querySelectorAll('.event-info .ev-reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+                // после анимации больше не нужно наблюдать
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.18   // элемент начинает анимацию как только 18% его высоты видно
+    });
+
+    items.forEach(el => observer.observe(el));
+})();
+
+// ============================================================
+// 3. ОБРАТНЫЙ ОТСЧЁТ
+// ============================================================
+const dateInput  = document.querySelector('.js_date');
 const targetDate = dateInput ? new Date(dateInput.value.replace(" ", "T")) : null;
+
 if (targetDate) {
     const elements = {
-        days: document.getElementById('days'),
-        hours: document.getElementById('hours'),
+        days:    document.getElementById('days'),
+        hours:   document.getElementById('hours'),
         minutes: document.getElementById('minutes'),
         seconds: document.getElementById('seconds')
     };
-    
-    function padZero(num) {
-        return String(num).padStart(2, '0');
-    }
-    
+
+    function padZero(num) { return String(num).padStart(2, '0'); }
+
     function updateCountdown() {
         const diff = targetDate - new Date();
-        
+
         if (diff <= 0) {
-            elements.days.innerHTML = '00 <span>Күн</span>';
-            elements.hours.innerHTML = '00 <span>Сағат</span>';
+            elements.days.innerHTML    = '00 <span>Күн</span>';
+            elements.hours.innerHTML   = '00 <span>Сағат</span>';
             elements.minutes.innerHTML = '00 <span>Минут</span>';
             elements.seconds.innerHTML = '00 <span>Секунд</span>';
             return;
         }
-        
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        elements.days.innerHTML = `${padZero(days)} <span>Күн</span>`;
-        elements.hours.innerHTML = `${padZero(hours)} <span>Сағат</span>`;
+
+        const days    = Math.floor(diff / (1000*60*60*24));
+        const hours   = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((diff % (1000*60*60))   / (1000*60));
+        const seconds = Math.floor((diff % (1000*60))      / 1000);
+
+        elements.days.innerHTML    = `${padZero(days)} <span>Күн</span>`;
+        elements.hours.innerHTML   = `${padZero(hours)} <span>Сағат</span>`;
         elements.minutes.innerHTML = `${padZero(minutes)} <span>Минут</span>`;
         elements.seconds.innerHTML = `${padZero(seconds)} <span>Секунд</span>`;
     }
-    
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
 }
-// Календарь
+
+// ============================================================
+// 4. КАЛЕНДАРЬ
+// ============================================================
 if (targetDate) {
-    const eventDay = targetDate.getDate();
+    const eventDay   = targetDate.getDate();
     const eventMonth = targetDate.getMonth();
-    const eventYear = targetDate.getFullYear();
-    
+    const eventYear  = targetDate.getFullYear();
+
     const calendarGrid = document.getElementById('calendarGrid');
-    const dayNames = ['Дс', 'Сс', 'Ср', 'Бс', 'Жм', 'Сн', 'Жк'];
-    
+    const dayNames     = ['Дс','Сс','Ср','Бс','Жм','Сн','Жк'];
+
     function renderCalendar(year, month) {
-        const firstDay = new Date(year, month, 1);
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const startDay = firstDay.getDay();
-        
+        const firstDay     = new Date(year, month, 1);
+        const daysInMonth  = new Date(year, month + 1, 0).getDate();
+        const startDay     = firstDay.getDay();
+
         calendarGrid.innerHTML = '';
-        
-        // Дни недели
+
         dayNames.forEach(day => {
             const div = document.createElement('div');
-            div.classList.add('calendar-day', 'day-of-week');
+            div.classList.add('calendar-day','day-of-week');
             div.textContent = day;
             calendarGrid.appendChild(div);
         });
-        
-        // Пустые ячейки
+
         const offset = startDay === 0 ? 6 : startDay - 1;
         for (let i = 0; i < offset; i++) {
             const div = document.createElement('div');
             div.classList.add('calendar-day');
             calendarGrid.appendChild(div);
         }
-        
-        // Дни месяца
+
         for (let day = 1; day <= daysInMonth; day++) {
             const div = document.createElement('div');
             div.classList.add('calendar-day');
             div.textContent = day;
-            
             if (day === eventDay && month === eventMonth && year === eventYear) {
                 div.classList.add('marked');
             }
-            
             calendarGrid.appendChild(div);
         }
     }
-    
+
     renderCalendar(eventYear, eventMonth);
 }
-// Музыкальный плеер
-const audio = document.getElementById('audio');
+
+// ============================================================
+// 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР
+// ============================================================
+const audio        = document.getElementById('audio');
 const playPauseBtn = document.getElementById('playPauseBtn');
 if (audio && playPauseBtn) {
     playPauseBtn.addEventListener('click', () => {
         if (audio.paused) {
             audio.play().then(() => {
                 playPauseBtn.classList.add('playing');
-            }).catch(err => {
-                console.error('Ошибка воспроизведения:', err);
-            });
+            }).catch(err => console.error('Ошибка воспроизведения:', err));
         } else {
             audio.pause();
             playPauseBtn.classList.remove('playing');
         }
     });
 }
-// Форма обратной связи
+
+// ============================================================
+// 6. ФОРМА → GOOGLE FORMS
+// ============================================================
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById('feedback-form');
+    const form       = document.getElementById('feedback-form');
     const messageBox = document.getElementById('feedback-message');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    form.addEventListener('submit', async function (e) {
-        e.preventDefault();
+    const submitBtn  = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', function (e) {
         const formData = new FormData(form);
-        const url = form.getAttribute('action');
-        messageBox.classList.add('hidden');
-        messageBox.innerHTML = '';
-        submitBtn.disabled = true;
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                    'Accept': 'application/json',
-                },
-                body: formData,
-            });
-            const data = await response.json();
-            if (response.ok) {
-                messageBox.innerHTML = data.message || 'Сіздің жауабыңыз сәтті жіберілді!';
-                messageBox.className = 'form-request success';
-                form.reset();
-                form.classList.add('hidden');
-                setTimeout(() => {
-                    messageBox.classList.add('hidden');
-                }, 5000);
-            } else if (response.status === 422) {
-                const errors = Object.values(data.errors).flat().join('<br>');
-                messageBox.innerHTML = errors;
-                messageBox.className = 'form-request error';
-            } else {
-                throw new Error(data.message || 'Қате орын алды.');
-            }
-        } catch (error) {
-            messageBox.innerHTML = error.message;
-            messageBox.className = 'form-request error';
-        }
-        messageBox.classList.remove('hidden');
-        submitBtn.disabled = false;
+        console.log('=== Отправка данных в Google Forms ===');
+        for (let [key, value] of formData.entries()) console.log(`${key}: ${value}`);
+        console.log('=======================================');
+
+        submitBtn.disabled     = true;
+        submitBtn.textContent  = 'Жіберілуде...';
+
+        setTimeout(() => showSuccessMessage(), 1500);
     });
+
+    function showSuccessMessage() {
+        messageBox.innerHTML = 'Сіздің жауабыңыз сәтті жіберілді! Рақмет!';
+        messageBox.className = 'form-request success';
+        messageBox.classList.remove('hidden');
+        form.classList.add('hidden');
+
+        setTimeout(() => { messageBox.classList.add('hidden'); }, 5000);
+    }
 });
 </script>
 </body>

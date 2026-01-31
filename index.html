@@ -1,0 +1,751 @@
+<!DOCTYPE html>  
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диананың қыз ұзату тойына шақыру</title>
+    
+    <style>
+        @font-face{font-family:Carolina;src:url(shrift1.woff) format("woff");font-weight:400;font-style:normal}
+        @font-face{font-family:Shelley;src:url(shrift2.woff) format("woff");font-weight:400;font-style:normal}
+        @font-face{font-family:MonumentaPro;src:url(shrift3.woff) format("woff");font-weight:400;font-style:normal}
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            position: relative;
+            max-width: 640px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            font-family: MonumentaPro, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body:before{
+            max-width:640px;
+            content:"";
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            margin:0 auto;
+            width:100%;
+            height:100%;
+            background:url(https://toiway.kz/build/img/template-images/background-2.jpg) no-repeat center center;
+            background-size:cover;
+            z-index:-1
+        }
+        
+        section{
+            text-align:center;
+            /* ИЗМЕНЕНО: убрал opacity:0 и transform */
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+        
+        h2 {
+            font-family: Shelley, Arial, sans-serif;
+            font-size: 66px;
+            color: #000;
+            line-height: 94px;
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-family: Shelley, Arial, sans-serif;
+            font-size: 55px;
+            color: #ad986e;
+            font-weight: 500;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .text-main {
+            font-family: MonumentaPro, Arial, sans-serif;
+            font-size: 20px;
+            color: #ad986e;
+        }
+        
+        .date-top {
+            font-family: MonumentaPro, Arial, sans-serif;
+            font-size: 26px;
+            color: #ad986e;
+        }
+        
+        .hero{
+            position:relative;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            overflow:hidden;
+            margin-bottom:40px
+        }
+        
+        .main-photo{
+            object-fit:cover;
+            height:800px;
+            width:100%;
+            display:block;
+            -webkit-mask-image:linear-gradient(to top,transparent,black 70%);
+            mask-image:linear-gradient(to top,transparent,black 70%)
+        }
+        
+        .hero h2{
+            position:absolute;
+            bottom:150px;
+            font-size:100px;
+            color:#413d3d;
+            text-shadow:2px 2px 4px rgba(0,0,0,.5);
+            z-index:2;
+            /* ИЗМЕНЕНО: убрал opacity:0 и animation */
+            opacity: 1 !important;
+        }
+        
+        .mp-name{
+            position:absolute;
+            color:#413d3d;
+            bottom:70px;
+            font-size:35px;
+            z-index:2;
+            /* ИЗМЕНЕНО: убрал opacity:0 и animation */
+            opacity: 1 !important;
+        }
+        
+        .mp-name-date{
+            position:absolute;
+            bottom:20px;
+            font-size:26px;
+            z-index:2;
+            /* ИЗМЕНЕНО: убрал opacity:0 и animation */
+            opacity: 1 !important;
+        }
+        
+        .photo2{
+            height:300px;
+            width:100%;
+            object-fit:cover;
+            object-position: center 20%;
+            border-radius:10px;
+            box-shadow:0 4px 10px #0003
+        }
+        
+        button {
+            font-family: MonumentaPro, Arial, sans-serif;
+            color: #fff;
+            font-size: 21px;
+            padding: 12px 40px;
+            background-color: #ad986e;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background-color .3s ease;
+        }
+        
+        button:hover{
+            background-color:#8a785a;
+        }
+        
+        .feedback h3 {
+            line-height: 40px;
+            font-size: 40px;
+            width: 90%;
+            margin: 0 auto;
+        }
+        
+        .feedback-input {
+            padding: 14px;
+            font-size: 20px;
+            width: 90%;
+            max-width: 380px;
+            margin: 10px 0;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            transition: border-color .3s ease;
+        }
+        
+        .feedback-input:focus-visible {
+            border: 2px solid #ad986e;
+        }
+        
+        .radio-group{
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            width:90%;
+            margin:0 auto
+        }
+        
+        .radio-container {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+        }
+        
+        .radio-container input{
+            position:absolute;
+            opacity:0;
+            cursor:pointer
+        }
+        
+        .custom-radio{
+            flex-shrink:0;
+            width:20px;
+            height:20px;
+            border-radius:50%;
+            border:2px solid black;
+            display:inline-block;
+            position:relative;
+            margin-right:10px
+        }
+        
+        .radio-container input:checked+.custom-radio:before{
+            content:"";
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background-color:#000;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%)
+        }
+        
+        .calendar{
+            max-width:400px;
+            margin:20px auto;
+            border:1px solid #ccc;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 4px 10px #0000001a
+        }
+        
+        .calendar-grid{
+            display:grid;
+            grid-template-columns:repeat(7,1fr);
+            gap:5px;
+            padding:10px
+        }
+        
+        .calendar-day{
+            padding:5px;
+            text-align:center;
+            border-radius:5px
+        }
+        
+        .calendar-day.marked{
+            color:#000;
+            background-image:url(https://toiway.kz/build/img/template-images/date-day.png);
+            background-size:cover;
+            background-position:center
+        }
+        
+        .countdown-section{
+            position:relative;
+            margin:40px 0;
+            text-align:center
+        }
+        
+        .countdown-background{
+            background-image:url('3.png');
+            background-size:cover;
+            background-position:center;
+            background-repeat:no-repeat;
+            padding:60px 20px;
+            border-radius:10px;
+            box-shadow:0 4px 10px #0003;
+            position:relative;
+            z-index:1
+        }
+        
+        .countdown-background:before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background-color:#000000b3;
+            z-index:-1
+        }
+        
+        .countdown{
+            display:flex;
+            justify-content:center;
+            gap:20px;
+            margin:20px 0
+        }
+        
+        .countdown-section h3 {
+            font-size: 30px;
+            color: #fff;
+        }
+        
+        .countdown p {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+        
+        .music-player-container{
+            margin-bottom:20px
+        }
+        
+        .audio-border{
+            position:absolute;
+            left:0;
+            right:0;
+            margin:auto;
+            width:100px;
+            animation:moveRight 15s infinite linear;
+            z-index:10
+        }
+        
+        @keyframes moveRight{
+            0%{transform:rotate(0)}
+            to{transform:rotate(360deg)}
+        }
+        
+        .player{
+            position:relative;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            border-radius:50px;
+            z-index:20
+        }
+        
+        .player button{
+            width:20px;
+            height:60px;
+            border:none;
+            border-radius:50%;
+            background-color:transparent;
+            background-image:url(https://toiway.kz/build/img/template-images/play.png);
+            background-size:contain;
+            background-position:center;
+            background-repeat:no-repeat;
+            cursor:pointer
+        }
+        
+        .player button.playing{
+            background-image:url(https://toiway.kz/build/img/template-images/pause.png)
+        }
+        
+        /* Загрузочный экран - эффект конверта */
+        .loading-screen{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            z-index:1000
+        }
+        
+        .letter-top, .letter-bottom{
+            font-size:60px;
+            background-color:#f5f5f5;
+            width:100%;
+            height:50%;
+            opacity:1;
+            transition:opacity .5s ease,transform 1s ease;
+            background-image:url(https://toiway.kz/build/img/template-images/paper-texture.avif)
+        }
+        
+        .letter-top{
+            position:relative;
+            z-index:10000;
+            border-bottom:2px solid #ccc;
+            animation:slideUp 1s ease 1s forwards;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .letter-bottom{
+            border-top:2px solid #ccc;
+            animation:slideDown 1s ease 1s forwards
+        }
+        
+        .letter-top h2{
+            position:absolute;
+            bottom:60px;
+            left:0;
+            right:0;
+            margin:0 auto;
+            text-align:center;
+            color:#ad986e;
+        }
+        
+        .seal-start{
+            position:absolute;
+            width:200px;
+            bottom:-100px;
+            z-index:10000;
+            left:0;
+            right:0;
+            margin:0 auto
+        }
+        
+        @keyframes slideUp{
+            0%{transform:translateY(0)}
+            100%{transform:translateY(-100vh)}
+        }
+        
+        @keyframes slideDown{
+            0%{transform:translateY(0)}
+            100%{transform:translateY(100vh)}
+        }
+        
+        /* Скрываем основной контент пока идет анимация */
+        .main-content {
+            display: none;
+        }
+        
+        .main-content.visible {
+            display: block;
+        }
+        
+        .hidden{
+            display: none;
+        }
+        
+        .form-request{
+            padding:15px;
+            margin:30px 10px;
+            color:#fff;
+            border-radius:.5rem
+        }
+        
+        .success{
+            background-color:#059669
+        }
+        
+        .error{
+            background-color:#dc2626
+        }
+        
+        footer {
+            background-color: #000c;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin: 0;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+        }
+        
+        a{
+            text-decoration:none;
+            color:inherit
+        }
+        .closing-message h3{
+            margin-top: 0.1em;
+            margin-bottom: 0.1em;
+        }
+    </style>
+</head>
+<body>
+<!-- Загрузочный экран - эффект конверта -->
+<div class="loading-screen">
+    <div class="letter-top">
+        <h2>Диана <br>қыз ұзату</h2>
+        <img src="https://toiway.kz/build/img/template-images/seal-start.png" class="seal-start" alt="">
+    </div>
+    <div class="letter-bottom"></div>
+</div>
+<!-- Основной контент -->
+<div class="main-content">
+<section class="hero">
+    <img src="1.jpg" alt="Невестка и жenih" class="main-photo">
+    <h2>Диана</h2>
+    <p class="mp-name">қыз ұзату</p>
+    <p class="date-top mp-name-date">02.05.2026</p>
+</section>
+<section class="info">
+    <div class="music-player-container">
+        <img src="https://toiway.kz/build/img/template-images/audio-border.png" class="audio-border" alt="">
+        <div class="player">
+            <audio id="audio" src="https://toiway.kz/build/audio/Құрбым жан құрбым.mp3"></audio>
+            <button id="playPauseBtn" class="play"></button>
+        </div>
+    </div>
+    <p class="text-main">
+        Құрметті ағайын-туыс,<br>
+        бауырлар, құда-жекжат,<br>
+        нағашылар, дос-жарандар,<br>
+        көршілер!<br>
+    </p>
+    <p>Сіздерді аяулы <br>қызымыз</p>
+    <h3>Диананың</h3>
+    <p>
+        ұзату тойына арналған<br>
+        салтанатты ақ<br>
+        дастарханымыздың қадірлі<br>
+        қонағы болуға шақырамыз!<br>
+    </p>
+</section>
+<section>
+    <img src="4.jpg" alt="Невестка и жених" class="photo2">
+</section>
+<section class="event-info">
+    <h3>Той салтанаты:</h3>
+    <p class="date-top">2 мамыр 2026 жыл</p>
+    <div class="calendar">
+        <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+    <p>16:00-де басталады</p>
+</section>
+<section class="address">
+    <h3>Мекен-жайымыз:</h3>
+    <p>
+        Өскемен.қ , Қабанбай батыр, 66/2<br>
+        "Estet"<br>
+        мейрамханасы<br>
+    </p>
+    <a href="https://2gis.kz/ustkam/geo/70000001097233269">
+        <button>2gis</button>
+    </a>
+    <h3>Той иелері:</h3>
+    <p>Бақыт - Жанна</p>
+</section>
+<section class="countdown-section">
+    <div class="countdown-background">
+        <h3>Той салтанатына дейін:</h3>
+        <div class="countdown">
+            <p id="days">00 <span>Күн</span></p>
+            <p id="hours">00 <span>Сағат</span></p>
+            <p id="minutes">00 <span>Минут</span></p>
+            <p id="seconds">00 <span>Секунд</span></p>
+        </div>
+    </div>
+</section>
+<section class="feedback">
+    <div id="feedback-message" class="hidden"></div>
+    <form id="feedback-form" action="https://toiway.kz/kk/feedback" method="POST">
+        <input type="hidden" name="_token" value="tC5jNW9DGverqb03ZohTW6j7adwIEMeUehkDo8Yu" autocomplete="off">
+        <h3>Мерекелік шараға қатысуыңызды растауға өтініш білдіреміз.</h3>
+        <input class="feedback-input" type="text" name="name" placeholder="Сіздің есімңіз">
+        <p>Тойға келесіз бе?</p>
+        <div class="radio-group">
+            <label class="radio-container">
+                <input type="radio" name="attendance" value="yes" checked>
+                <span class="custom-radio"></span>
+                ИӘ, КЕЛЕМІН
+            </label>
+            <label class="radio-container">
+                <input type="radio" name="attendance" value="yes_with_partner">
+                <span class="custom-radio"></span>
+                ЖҰБАЙЫММЕН КЕЛЕМІН
+            </label>
+            <label class="radio-container">
+                <input type="radio" name="attendance" value="no">
+                <span class="custom-radio"></span>
+                КЕЛЕ АЛМАЙМЫН
+            </label>
+        </div>
+        <input type="hidden" name="project_id" value="diana">
+        <button type="submit">Жіберу</button>
+    </form>
+</section>
+<section class="closing-message">
+    <h3>
+        Қуанышымызға<br>
+        ортақ<br>
+        болыңыздар!<br>
+    </h3>
+    <input type="hidden" class="js_date" value="2026-05-02 16:00:00">
+</section>
+</div>
+<!-- Конец main-content -->
+<footer>
+    <p>Created By <a href="https://toiway.kz">ToiWay.kz</a></p>
+    <p>© Все права защищены</p>
+    <p>2025 Toiway.kz</p>
+</footer>
+<script>
+// Управление загрузочным экраном
+document.addEventListener("DOMContentLoaded", () => {
+    const loadingScreen = document.querySelector('.loading-screen');
+    const mainContent = document.querySelector('.main-content');
+    
+    // Через 2 секунды скрываем загрузочный экран и показываем контент
+    setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        mainContent.classList.add('visible');
+    }, 2000);
+});
+// Обратный отсчет
+const dateInput = document.querySelector('.js_date');
+const targetDate = dateInput ? new Date(dateInput.value.replace(" ", "T")) : null;
+if (targetDate) {
+    const elements = {
+        days: document.getElementById('days'),
+        hours: document.getElementById('hours'),
+        minutes: document.getElementById('minutes'),
+        seconds: document.getElementById('seconds')
+    };
+    
+    function padZero(num) {
+        return String(num).padStart(2, '0');
+    }
+    
+    function updateCountdown() {
+        const diff = targetDate - new Date();
+        
+        if (diff <= 0) {
+            elements.days.innerHTML = '00 <span>Күн</span>';
+            elements.hours.innerHTML = '00 <span>Сағат</span>';
+            elements.minutes.innerHTML = '00 <span>Минут</span>';
+            elements.seconds.innerHTML = '00 <span>Секунд</span>';
+            return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        elements.days.innerHTML = `${padZero(days)} <span>Күн</span>`;
+        elements.hours.innerHTML = `${padZero(hours)} <span>Сағат</span>`;
+        elements.minutes.innerHTML = `${padZero(minutes)} <span>Минут</span>`;
+        elements.seconds.innerHTML = `${padZero(seconds)} <span>Секунд</span>`;
+    }
+    
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+}
+// Календарь
+if (targetDate) {
+    const eventDay = targetDate.getDate();
+    const eventMonth = targetDate.getMonth();
+    const eventYear = targetDate.getFullYear();
+    
+    const calendarGrid = document.getElementById('calendarGrid');
+    const dayNames = ['Дс', 'Сс', 'Ср', 'Бс', 'Жм', 'Сн', 'Жк'];
+    
+    function renderCalendar(year, month) {
+        const firstDay = new Date(year, month, 1);
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const startDay = firstDay.getDay();
+        
+        calendarGrid.innerHTML = '';
+        
+        // Дни недели
+        dayNames.forEach(day => {
+            const div = document.createElement('div');
+            div.classList.add('calendar-day', 'day-of-week');
+            div.textContent = day;
+            calendarGrid.appendChild(div);
+        });
+        
+        // Пустые ячейки
+        const offset = startDay === 0 ? 6 : startDay - 1;
+        for (let i = 0; i < offset; i++) {
+            const div = document.createElement('div');
+            div.classList.add('calendar-day');
+            calendarGrid.appendChild(div);
+        }
+        
+        // Дни месяца
+        for (let day = 1; day <= daysInMonth; day++) {
+            const div = document.createElement('div');
+            div.classList.add('calendar-day');
+            div.textContent = day;
+            
+            if (day === eventDay && month === eventMonth && year === eventYear) {
+                div.classList.add('marked');
+            }
+            
+            calendarGrid.appendChild(div);
+        }
+    }
+    
+    renderCalendar(eventYear, eventMonth);
+}
+// Музыкальный плеер
+const audio = document.getElementById('audio');
+const playPauseBtn = document.getElementById('playPauseBtn');
+if (audio && playPauseBtn) {
+    playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play().then(() => {
+                playPauseBtn.classList.add('playing');
+            }).catch(err => {
+                console.error('Ошибка воспроизведения:', err);
+            });
+        } else {
+            audio.pause();
+            playPauseBtn.classList.remove('playing');
+        }
+    });
+}
+// Форма обратной связи
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('feedback-form');
+    const messageBox = document.getElementById('feedback-message');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const url = form.getAttribute('action');
+        messageBox.classList.add('hidden');
+        messageBox.innerHTML = '';
+        submitBtn.disabled = true;
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            });
+            const data = await response.json();
+            if (response.ok) {
+                messageBox.innerHTML = data.message || 'Сіздің жауабыңыз сәтті жіберілді!';
+                messageBox.className = 'form-request success';
+                form.reset();
+                form.classList.add('hidden');
+                setTimeout(() => {
+                    messageBox.classList.add('hidden');
+                }, 5000);
+            } else if (response.status === 422) {
+                const errors = Object.values(data.errors).flat().join('<br>');
+                messageBox.innerHTML = errors;
+                messageBox.className = 'form-request error';
+            } else {
+                throw new Error(data.message || 'Қате орын алды.');
+            }
+        } catch (error) {
+            messageBox.innerHTML = error.message;
+            messageBox.className = 'form-request error';
+        }
+        messageBox.classList.remove('hidden');
+        submitBtn.disabled = false;
+    });
+});
+</script>
+</body>
+</html>

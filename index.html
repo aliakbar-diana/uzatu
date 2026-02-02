@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Диананың қыз ұзату тойына шақыру</title>
+    <title>Диананың қыз ұзату тойына шақыру | Приглашение на той Дианы</title>
     
     <style>
         @font-face{font-family:Carolina;src:url(shrift1.woff) format("woff");font-weight:400;font-style:normal}
@@ -27,6 +27,7 @@
             font-family: MonumentaPro, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
         
         body:before{
@@ -46,6 +47,7 @@
         
         section{
             text-align:center;
+            padding: 0 15px;
         }
         
         h2 {
@@ -80,6 +82,53 @@
             color: #ad986e;
         }
         
+        /* ===== LANGUAGE SWITCHER ===== */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(173, 152, 110, 0.9);
+            border-radius: 25px;
+            padding: 8px 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 5px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: MonumentaPro, Arial, sans-serif;
+            font-size: 14px;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            margin: 0;
+        }
+        
+        .lang-btn.active {
+            background: #fff;
+            color: #ad986e;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .lang-btn.active:hover {
+            background: #fff;
+        }
+        
+        /* ===== TRANSLATION CLASSES ===== */
+        .lang-kk { display: inline; }
+        .lang-ru { display: none; }
+        
+        body.ru-lang .lang-kk { display: none; }
+        body.ru-lang .lang-ru { display: inline; }
+        
         /* ===== HERO ===== */
         .hero{
             position:relative;
@@ -87,7 +136,8 @@
             justify-content:center;
             align-items:center;
             overflow:hidden;
-            margin-bottom:40px
+            margin-bottom:40px;
+            padding: 0;
         }
         
         .main-photo{
@@ -151,6 +201,7 @@
         .photo2{
             height:300px;
             width:100%;
+            max-width: 100%;
             object-fit:cover;
             object-position: center 20%;
             border-radius:10px;
@@ -207,7 +258,8 @@
             flex-direction:column;
             gap:10px;
             width:90%;
-            margin:0 auto
+            max-width: 380px;
+            margin:0 auto;
         }
         
         .radio-container {
@@ -217,6 +269,7 @@
             cursor: pointer;
             position: relative;
             user-select: none;
+            text-align: left;
         }
         
         .radio-container input{
@@ -251,6 +304,7 @@
         /* ===== CALENDAR SECTION ===== */
         .calendar{
             max-width:400px;
+            width: 100%;
             margin:20px auto;
             border:1px solid #ccc;
             border-radius:10px;
@@ -268,7 +322,8 @@
         .calendar-day{
             padding:5px;
             text-align:center;
-            border-radius:5px
+            border-radius:5px;
+            font-size: 14px;
         }
         
         .calendar-day.marked{
@@ -319,14 +374,16 @@
             position:absolute;
             inset:0;
             background-color:#000000b3;
-            z-index:-1
+            z-index:-1;
+            border-radius:10px;
         }
         
         .countdown{
             display:flex;
             justify-content:center;
-            gap:20px;
-            margin:20px 0
+            gap:15px;
+            margin:20px 0;
+            flex-wrap: wrap;
         }
         
         .countdown-section h3 {
@@ -343,7 +400,8 @@
         
         /* ===== MUSIC PLAYER ===== */
         .music-player-container{
-            margin-bottom:20px
+            margin-bottom:20px;
+            position: relative;
         }
         
         .audio-border{
@@ -367,11 +425,12 @@
             justify-content:center;
             align-items:center;
             border-radius:50px;
-            z-index:20
+            z-index:20;
+            padding: 20px;
         }
         
         .player button{
-            width:20px;
+            width:60px;
             height:60px;
             border:none;
             border-radius:50%;
@@ -380,7 +439,8 @@
             background-size:contain;
             background-position:center;
             background-repeat:no-repeat;
-            cursor:pointer
+            cursor:pointer;
+            padding: 0;
         }
         
         .player button.playing{
@@ -434,11 +494,13 @@
             margin:0 auto;
             text-align:center;
             color:#ad986e;
+            padding: 0 20px;
         }
         
         .seal-start{
             position:absolute;
             width:200px;
+            max-width: 50vw;
             bottom:-100px;
             z-index:10000;
             left:0;
@@ -520,6 +582,7 @@
             text-decoration:none;
             color:inherit
         }
+        
         .closing-message h3{
             margin-top: 0.1em;
             margin-bottom: 0.1em;
@@ -528,13 +591,131 @@
         #hidden_iframe {
             display: none;
         }
+        
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 48px;
+                line-height: 60px;
+            }
+            
+            h3 {
+                font-size: 38px;
+            }
+            
+            .hero h2 {
+                font-size: 70px;
+                bottom: 120px;
+            }
+            
+            .mp-name {
+                font-size: 28px;
+                bottom: 60px;
+            }
+            
+            .mp-name-date {
+                font-size: 22px;
+                bottom: 15px;
+            }
+            
+            .main-photo {
+                height: 600px;
+            }
+            
+            .feedback h3 {
+                font-size: 32px;
+                line-height: 36px;
+            }
+            
+            .date-top {
+                font-size: 22px;
+            }
+            
+            p {
+                font-size: 18px;
+            }
+            
+            .text-main {
+                font-size: 18px;
+            }
+            
+            button {
+                font-size: 18px;
+                padding: 10px 30px;
+            }
+            
+            .countdown-section h3 {
+                font-size: 24px;
+            }
+            
+            .countdown p {
+                font-size: 14px;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+                padding: 6px 10px;
+            }
+            
+            .lang-btn {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            
+            .letter-top h2 {
+                font-size: 48px;
+                bottom: 40px;
+            }
+            
+            .radio-container {
+                font-size: 14px;
+            }
+            
+            footer .footer-names {
+                font-size: 32px;
+            }
+            
+            footer .footer-message {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .hero h2 {
+                font-size: 60px;
+            }
+            
+            .feedback h3 {
+                font-size: 28px;
+            }
+            
+            .calendar-day {
+                font-size: 12px;
+                padding: 3px;
+            }
+        }
     </style>
 </head>
 <body>
+
+<!-- Переключатель языков -->
+<div class="language-switcher">
+    <button class="lang-btn active" onclick="switchLanguage('kk')">ҚАЗ</button>
+    <button class="lang-btn" onclick="switchLanguage('ru')">РУС</button>
+</div>
+
 <!-- Загрузочный экран -->
 <div class="loading-screen">
     <div class="letter-top">
-        <h2>Диана <br>қыз ұзату</h2>
+        <h2>
+            <span class="lang-kk">Диана<br>қыз ұзату</span>
+            <span class="lang-ru">Диана<br>Проводы невесты</span>
+        </h2>
         <img src="https://toiway.kz/build/img/template-images/seal-start.png" class="seal-start" alt="">
     </div>
     <div class="letter-bottom"></div>
@@ -544,10 +725,12 @@
 <div class="main-content">
 
 <section class="hero">
-    <img src="1.jpg" alt="Невестка и жених" class="main-photo">
-    <!-- каждый элемент получит .reveal после появления контента -->
+    <img src="1.jpg" alt="Диана" class="main-photo">
     <h2>Диана</h2>
-    <p class="mp-name">қыз ұзату</p>
+    <p class="mp-name">
+        <span class="lang-kk">қыз ұзату</span>
+        <span class="lang-ru">проводы невесты</span>
+    </p>
     <p class="date-top mp-name-date">02.05.2026</p>
 </section>
 
@@ -556,61 +739,114 @@
         <img src="https://toiway.kz/build/img/template-images/audio-border.png" class="audio-border" alt="">
         <div class="player">
             <audio id="audio" src="https://toiway.kz/build/audio/Құрбым жан құрбым.mp3"></audio>
-            <button id="playPauseBtn" class="play"></button>
+            <button id="playPauseBtn" class="play" aria-label="Play/Pause"></button>
         </div>
     </div>
     <p class="text-main">
-        Құрметті ағайын-туыс,<br>
-        бауырлар, құда-жекжат,<br>
-        нағашылар, дос-жарандар,<br>
-        көршілер!<br>
+        <span class="lang-kk">
+            Құрметті ағайын-туыс,<br>
+            бауырлар, құда-жекжат,<br>
+            нағашылар, дос-жарандар,<br>
+            көршілер!
+        </span>
+        <span class="lang-ru">
+            Уважаемые родственники,<br>
+            сваты, кумовья,<br>
+            друзья и соседи!
+        </span>
     </p>
-    <p>Сіздерді аяулы <br>қызымыз</p>
-    <h3>Диананың</h3>
     <p>
-        ұзату тойына арналған<br>
-        салтанатты ақ<br>
-        дастарханымыздың қадірлі<br>
-        қонағы болуға шақырамыз!<br>
+        <span class="lang-kk">Сіздерді аяулы<br>қызымыз</span>
+        <span class="lang-ru">Приглашаем вас на<br>проводы нашей дочери</span>
+    </p>
+    <h3>Диана</h3>
+    <p>
+        <span class="lang-kk">
+            ұзату тойына арналған<br>
+            салтанатты ақ<br>
+            дастарханымыздың қадірлі<br>
+            қонағы болуға шақырамыз!
+        </span>
+        <span class="lang-ru">
+            Будем рады видеть вас<br>
+            дорогими гостями<br>
+            за нашим торжественным<br>
+            дастарханом!
+        </span>
     </p>
 </section>
 
 <section>
-    <img src="4.jpg" alt="Невестка и жених" class="photo2">
+    <img src="4.jpg" alt="Диана" class="photo2">
 </section>
 
-<!-- event-info: каждый прямой потомок оборачивается .ev-reveal для всплытия -->
 <section class="event-info">
-    <h3 class="ev-reveal">Той салтанаты:</h3>
-    <p class="date-top ev-reveal">2 мамыр 2026 жыл</p>
+    <h3 class="ev-reveal">
+        <span class="lang-kk">Той салтанаты:</span>
+        <span class="lang-ru">Торжество:</span>
+    </h3>
+    <p class="date-top ev-reveal">
+        <span class="lang-kk">2 мамыр 2026 жыл</span>
+        <span class="lang-ru">2 мая 2026 года</span>
+    </p>
     <div class="calendar ev-reveal">
         <div class="calendar-grid" id="calendarGrid"></div>
     </div>
-    <p class="ev-reveal">17:00-де басталады</p>
+    <p class="ev-reveal">
+        <span class="lang-kk">17:00-де басталады</span>
+        <span class="lang-ru">Начало в 17:00</span>
+    </p>
 </section>
 
 <section class="address">
-    <h3>Мекен-жайымыз:</h3>
+    <h3>
+        <span class="lang-kk">Мекен-жайымыз:</span>
+        <span class="lang-ru">Адрес:</span>
+    </h3>
     <p>
-        Петропавл қ , Конституция Казахстана, 41<br>
-        "Garden Hall"<br>
-        мейрамханасы<br>
+        <span class="lang-kk">
+            Петропавл қ., Конституция Казахстана, 41<br>
+            "Garden Hall"<br>
+            мейрамханасы
+        </span>
+        <span class="lang-ru">
+            г. Петропавловск, Конституция Казахстана, 41<br>
+            Ресторан<br>
+            "Garden Hall"
+        </span>
     </p>
     <a href="https://2gis.kz/petropavlovsk/search/%D0%B1%D0%B0%D0%BD%D0%BA%D0%B5%D1%82%D0%BD%D1%8B%D0%B9%20%D0%B7%D0%B0%D0%BB%20/firm/70000001057458760?m=69.1409%2C54.86511%2F14.25">
-        <button>2gis</button>
+        <button>
+            <span class="lang-kk">Картада көру</span>
+            <span class="lang-ru">Посмотреть на карте</span>
+        </button>
     </a>
-    <h3>Той иелері:</h3>
+    <h3>
+        <span class="lang-kk">Той иелері:</span>
+        <span class="lang-ru">Организаторы:</span>
+    </h3>
     <p>Бақыт - Жанна</p>
 </section>
 
 <section class="countdown-section">
     <div class="countdown-background">
-        <h3>Той салтанатына дейін:</h3>
+        <h3>
+            <span class="lang-kk">Той салтанатына дейін:</span>
+            <span class="lang-ru">До торжества осталось:</span>
+        </h3>
         <div class="countdown">
-            <p id="days">00 <span>Күн</span></p>
-            <p id="hours">00 <span>Сағат</span></p>
-            <p id="minutes">00 <span>Минут</span></p>
-            <p id="seconds">00 <span>Секунд</span></p>
+            <p id="days">
+                00 <span class="lang-kk">Күн</span><span class="lang-ru">Дней</span>
+            </p>
+            <p id="hours">
+                00 <span class="lang-kk">Сағат</span><span class="lang-ru">Часов</span>
+            </p>
+            <p id="minutes">
+                00 <span class="lang-kk">Минут</span><span class="lang-ru">Минут</span>
+            </p>
+            <p id="seconds">
+                00 <span class="lang-kk">Секунд</span><span class="lang-ru">Секунд</span>
+            </p>
         </div>
     </div>
 </section>
@@ -621,16 +857,22 @@
           action="https://docs.google.com/forms/d/e/1FAIpQLScJBTWD6b3RwOgBwIIPppRBb0A7z-TuSV2WsEOGu18cNx1Ynw/formResponse" 
           method="POST"
           target="hidden_iframe">
-        <h3>Мерекелік шараға қатысуыңызды растауға өтініш білдіреміз.</h3>
+        <h3>
+            <span class="lang-kk">Мерекелік шараға қатысуыңызды растауға өтініш білдіреміз.</span>
+            <span class="lang-ru">Просим подтвердить ваше участие в торжестве.</span>
+        </h3>
         
         <input class="feedback-input" 
                type="text" 
                name="entry.1898004027" 
-               placeholder="Сіздің есіміңіз"
+               placeholder=""
                id="name-input"
                required>
         
-        <p>Тойға келесіз бе?</p>
+        <p>
+            <span class="lang-kk">Тойға келесіз бе?</span>
+            <span class="lang-ru">Будете ли вы на торжестве?</span>
+        </p>
         <div class="radio-group">
             <label class="radio-container">
                 <input type="radio" 
@@ -639,7 +881,8 @@
                        checked
                        id="attendance-yes">
                 <span class="custom-radio"></span>
-                ИӘ, КЕЛЕМІН
+                <span class="lang-kk">ИӘ, КЕЛЕМІН</span>
+                <span class="lang-ru">ДА, ПРИДУ</span>
             </label>
             <label class="radio-container">
                 <input type="radio" 
@@ -647,7 +890,8 @@
                        value="Жұбайыммен келемін"
                        id="attendance-partner">
                 <span class="custom-radio"></span>
-                ЖҰБАЙЫММЕН КЕЛЕМІН
+                <span class="lang-kk">ЖҰБАЙЫММЕН КЕЛЕМІН</span>
+                <span class="lang-ru">ПРИДУ С СУПРУГОМ/СУПРУГОЙ</span>
             </label>
             <label class="radio-container">
                 <input type="radio" 
@@ -655,11 +899,15 @@
                        value="Келе алмаймын"
                        id="attendance-no">
                 <span class="custom-radio"></span>
-                КЕЛЕ АЛМАЙМЫН
+                <span class="lang-kk">КЕЛЕ АЛМАЙМЫН</span>
+                <span class="lang-ru">НЕ СМОГУ ПРИЙТИ</span>
             </label>
         </div>
         
-        <button type="submit" id="submit-btn">Жіберу</button>
+        <button type="submit" id="submit-btn">
+            <span class="lang-kk">Жіберу</span>
+            <span class="lang-ru">Отправить</span>
+        </button>
     </form>
     
     <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
@@ -667,11 +915,18 @@
 
 <section class="closing-message">
     <h3>
-        Қуанышымызға<br>
-        ортақ<br>
-        болыңыздар!<br>
+        <span class="lang-kk">
+            Қуанышымызға<br>
+            ортақ<br>
+            болыңыздар!
+        </span>
+        <span class="lang-ru">
+            Разделите<br>
+            с нами<br>
+            нашу радость!
+        </span>
     </h3>
-    <input type="hidden" class="js_date" value="2026-05-02 16:00:00">
+    <input type="hidden" class="js_date" value="2026-05-02 17:00:00">
 </section>
 
 </div><!-- /main-content -->
@@ -679,12 +934,57 @@
 <footer>
     <p class="footer-names">Алиакбар & Диана</p>
     <p class="footer-message">
-        Бір шаңырақтан — бір ғұмырға.
+        <span class="lang-kk">Бір шаңырақтан — бір ғұмырға.</span>
+        <span class="lang-ru">Из одного очага — в одну судьбу.</span>
     </p>
-    <p class="footer-year">2 мамыр • 2026</p>
+    <p class="footer-year">
+        <span class="lang-kk">2 мамыр • 2026</span>
+        <span class="lang-ru">2 мая • 2026</span>
+    </p>
 </footer>
 
 <script>
+// ============================================================
+// LANGUAGE SWITCHER
+// ============================================================
+function switchLanguage(lang) {
+    const body = document.body;
+    const buttons = document.querySelectorAll('.lang-btn');
+    const nameInput = document.getElementById('name-input');
+    
+    if (lang === 'ru') {
+        body.classList.add('ru-lang');
+        nameInput.placeholder = 'Ваше имя';
+    } else {
+        body.classList.remove('ru-lang');
+        nameInput.placeholder = 'Сіздің есіміңіз';
+    }
+    
+    // Update active button
+    buttons.forEach(btn => {
+        if ((lang === 'kk' && btn.textContent === 'ҚАЗ') || 
+            (lang === 'ru' && btn.textContent === 'РУС')) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // Save preference
+    localStorage.setItem('preferredLanguage', lang);
+    
+    // Update countdown labels
+    updateCountdown();
+}
+
+// Load saved language preference
+window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang === 'ru') {
+        switchLanguage('ru');
+    }
+});
+
 // ============================================================
 // 1. ЗАГРУЗОЧНЫЙ ЭКРАН + HERO REVEAL
 // ============================================================
@@ -715,12 +1015,11 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal');
-                // после анимации больше не нужно наблюдать
                 observer.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.18   // элемент начинает анимацию как только 18% его высоты видно
+        threshold: 0.18
     });
 
     items.forEach(el => observer.observe(el));
@@ -744,12 +1043,18 @@ if (targetDate) {
 
     function updateCountdown() {
         const diff = targetDate - new Date();
+        const isRussian = document.body.classList.contains('ru-lang');
 
         if (diff <= 0) {
-            elements.days.innerHTML    = '00 <span>Күн</span>';
-            elements.hours.innerHTML   = '00 <span>Сағат</span>';
-            elements.minutes.innerHTML = '00 <span>Минут</span>';
-            elements.seconds.innerHTML = '00 <span>Секунд</span>';
+            const dayLabel = isRussian ? 'Дней' : 'Күн';
+            const hourLabel = isRussian ? 'Часов' : 'Сағат';
+            const minLabel = isRussian ? 'Минут' : 'Минут';
+            const secLabel = isRussian ? 'Секунд' : 'Секунд';
+            
+            elements.days.innerHTML    = `00 <span class="lang-kk">Күн</span><span class="lang-ru">Дней</span>`;
+            elements.hours.innerHTML   = `00 <span class="lang-kk">Сағат</span><span class="lang-ru">Часов</span>`;
+            elements.minutes.innerHTML = `00 <span class="lang-kk">Минут</span><span class="lang-ru">Минут</span>`;
+            elements.seconds.innerHTML = `00 <span class="lang-kk">Секунд</span><span class="lang-ru">Секунд</span>`;
             return;
         }
 
@@ -758,10 +1063,10 @@ if (targetDate) {
         const minutes = Math.floor((diff % (1000*60*60))   / (1000*60));
         const seconds = Math.floor((diff % (1000*60))      / 1000);
 
-        elements.days.innerHTML    = `${padZero(days)} <span>Күн</span>`;
-        elements.hours.innerHTML   = `${padZero(hours)} <span>Сағат</span>`;
-        elements.minutes.innerHTML = `${padZero(minutes)} <span>Минут</span>`;
-        elements.seconds.innerHTML = `${padZero(seconds)} <span>Секунд</span>`;
+        elements.days.innerHTML    = `${padZero(days)} <span class="lang-kk">Күн</span><span class="lang-ru">Дней</span>`;
+        elements.hours.innerHTML   = `${padZero(hours)} <span class="lang-kk">Сағат</span><span class="lang-ru">Часов</span>`;
+        elements.minutes.innerHTML = `${padZero(minutes)} <span class="lang-kk">Минут</span><span class="lang-ru">Минут</span>`;
+        elements.seconds.innerHTML = `${padZero(seconds)} <span class="lang-kk">Секунд</span><span class="lang-ru">Секунд</span>`;
     }
 
     setInterval(updateCountdown, 1000);
@@ -777,7 +1082,7 @@ if (targetDate) {
     const eventYear  = targetDate.getFullYear();
 
     const calendarGrid = document.getElementById('calendarGrid');
-    const dayNames     = ['Дс','Сс','Ср','Бс','Жм','Сн','Жк'];
+    const dayNames     = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 
     function renderCalendar(year, month) {
         const firstDay     = new Date(year, month, 1);
@@ -847,13 +1152,17 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log('=======================================');
 
         submitBtn.disabled     = true;
-        submitBtn.textContent  = 'Жіберілуде...';
+        const isRussian = document.body.classList.contains('ru-lang');
+        submitBtn.textContent  = isRussian ? 'Отправка...' : 'Жіберілуде...';
 
         setTimeout(() => showSuccessMessage(), 1500);
     });
 
     function showSuccessMessage() {
-        messageBox.innerHTML = 'Сіздің жауабыңыз сәтті жіберілді! Рақмет!';
+        const isRussian = document.body.classList.contains('ru-lang');
+        messageBox.innerHTML = isRussian 
+            ? 'Ваш ответ успешно отправлен! Спасибо!' 
+            : 'Сіздің жауабыңыз сәтті жіберілді! Рақмет!';
         messageBox.className = 'form-request success';
         messageBox.classList.remove('hidden');
         form.classList.add('hidden');
